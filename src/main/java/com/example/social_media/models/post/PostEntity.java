@@ -1,9 +1,13 @@
 package com.example.social_media.models.post;
 
+import com.example.social_media.models.comment.CommentEntity;
 import com.example.social_media.models.user.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -20,6 +24,9 @@ public class PostEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentEntity> comments = new ArrayList<>();
 
     public PostEntity() {
     }
@@ -52,5 +59,13 @@ public class PostEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }

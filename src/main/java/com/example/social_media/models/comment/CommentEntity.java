@@ -2,6 +2,7 @@ package com.example.social_media.models.comment;
 
 import com.example.social_media.models.post.PostEntity;
 import com.example.social_media.models.user.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ public class CommentEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "post_id")
+    @JsonIgnore
     private PostEntity post;
 
     @ManyToOne(optional = false)
